@@ -6,3 +6,6 @@ class BaseModel:
 
     def __str__():
         return 
+    
+    def save(self):
+        return
