@@ -54,7 +54,7 @@ The project repository contains the following structure:
 
 ```markdown
 
-### holbertonschool-AirBnB_clone/
+holbertonschool-AirBnB_clone/
 ├── README.md
 ├── AUTHORS
 ├── console.py
