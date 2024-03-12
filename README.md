@@ -88,9 +88,9 @@ $ python3 -m unittest discover tests
 
 ## Authors
 
-<p style="text-align: center;"><strong><big>Nataly Rodriguez</big></strong></p>
+<p><strong><big>Nataly Rodriguez</big></strong></p>
 
-<div style="text-align: center;">
+<div>
     <a href="https://www.linkedin.com/in/camilo-fetecua">
         <img src="https://github.com/camilof91/imagenes/blob/master/icons-linkedin.png?raw=true" style="display: inline-block; margin-right: 20px; vertical-align: middle;" width="60">
     </a>
@@ -99,9 +99,9 @@ $ python3 -m unittest discover tests
     </a>
 </div>
 
-<p style="text-align: center;"><strong><big>Jesenia Bernal</big></strong></p>
+<p><strong><big>Jesenia Bernal</big></strong></p>
 
-<div style="text-align: center;">
+<div>
     <a href="https://www.linkedin.com/in/camilo-fetecua">
         <img src="https://github.com/camilof91/imagenes/blob/master/icons-linkedin.png?raw=true" style="display: inline-block; margin-right: 20px; vertical-align: middle;" width="60">
     </a>
@@ -110,9 +110,9 @@ $ python3 -m unittest discover tests
     </a>
 </div>
 
-<p style="text-align: center;"><strong><big>Camilo Fetecua</big></strong></p>
+<p><strong><big>Camilo Fetecua</big></strong></p>
 
-<div style="text-align: center;">
+<div>
     <a href="https://www.linkedin.com/in/camilo-fetecua">
         <img src="https://github.com/camilof91/imagenes/blob/master/icons-linkedin.png?raw=true" style="display: inline-block; margin-right: 20px; vertical-align: middle;" width="60">
     </a>
