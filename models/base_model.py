@@ -3,6 +3,10 @@ from datetime import datetime
 
 class BaseModel:
     def __init__(self):
+        """
+        Initializes a new instance of the class.
+        This function assigns initial values to the instance attributes
+        """
         self.id = uuid.uuid4()
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
