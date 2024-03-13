@@ -1,4 +1,5 @@
-import uuid
+#!/usr/bin/python3
+from uuid import uuid4
 from datetime import datetime
 """
     Represents a sample class with attributes
@@ -12,14 +13,13 @@ from datetime import datetime
             Date and time of the last update of the instance.
 """
 
-
 class BaseModel:
     def __init__(self):
         """
         Initializes a new instance of the class.
         This function assigns initial values to the instance attributes
         """
-        self.id = uuid.uuid4()
+        self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
 
