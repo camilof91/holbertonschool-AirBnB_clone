@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import models 
 from uuid import uuid4
 from datetime import datetime
 """
@@ -14,14 +15,25 @@ from datetime import datetime
 """
 
 class BaseModel:
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
         Initializes a new instance of the class.
         This function assigns initial values to the instance attributes
         """
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+
+
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == "created_at" or key == "updated_at":
+                    setattr (self, key, datetime.strptime(value,"%Y-%m-%dT%H:%M:%S.%f"))
+                elif key != '__class__':
+                    setattr(self, key,value)
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.today()
+            self.updated_at = datetime.today()
+
+
 
     def __str__(self):
         """
@@ -34,7 +46,7 @@ class BaseModel:
         """
         Save the date current
         """
-        self.update_at = datetime.now()
+        self.updated_at = datetime.now()
 
     def to_dict(self):
         """Convert the instance to a dictionary.
