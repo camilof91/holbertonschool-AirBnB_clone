@@ -1,16 +1,19 @@
 #!/usr/bin/python3
 import cmd
 """
-Defines the HBnB console.
-Attributes
-cmd
+HBnB Console
+
+This script defines the HBnB console, an interactive command-line interface for interacting with the HBnB system.
+
+Attributes:
+    cmd: Module providing the foundation for building command processors.
 """
 
 
 class HBNBCommand(cmd.Cmd):
     """
     HBNB command interpreter class.
-    This class provides an interactive command interpreter.
+    This class provides an interactive command interpreter for the HBnB system.
     """
     prompt = "(hbnb)"
 
