@@ -36,7 +36,9 @@ class FileStorage:
         try:
             with open(self.__file_path, 'r') as open_file:
                 serialized_objects = json.load(open_file)
+                from models.base_model import BaseModel
                 for key, value in serialized_objects.items():
-                    self.__objects[key] = eval(value['__class__'])(**value)
+                    if value['__class__'] != "NoneType":
+                        self.__objects[key] = eval(value['__class__'])(**value)
         except FileNotFoundError:
             pass
