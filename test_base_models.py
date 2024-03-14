@@ -16,6 +16,7 @@ for key in my_model_json.keys():
 
 print("--")
 my_new_model = BaseModel(**my_model_json)
+print("dictionary")
 print(my_new_model.id)
 print(my_new_model)
 print(type(my_new_model.created_at))
