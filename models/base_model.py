@@ -1,6 +1,8 @@
 #!/usr/bin/python3
+import models 
 from uuid import uuid4
 from datetime import datetime
+from models import storage
 """
     Represents a sample class with attributes
     for identification and timestamps.
@@ -14,14 +16,28 @@ from datetime import datetime
 """
 
 class BaseModel:
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
         Initializes a new instance of the class.
         This function assigns initial values to the instance attributes
         """
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+
+
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == "created_at" or key == "updated_at":
+                    setattr (self, key, datetime.strptime(value,"%Y-%m-%dT%H:%M:%S.%f"))
+                elif key != '__class__':
+                    setattr(self, key,value)
+            
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.today()
+            self.updated_at = datetime.today()
+            """New objects can only be included in storage when
+            the objects do not come from the JSON file (Point 5)"""
+            storage.new(self)
+        
 
     def __str__(self):
         """
@@ -34,7 +50,10 @@ class BaseModel:
         """
         Save the date current
         """
-        self.update_at = datetime.now()
+        self.updated_at = datetime.now()
+        """Call the save function to update the file
+            in case there are changes(point 5)"""
+        storage.save()
 
     def to_dict(self):
         """Convert the instance to a dictionary.
