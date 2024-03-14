@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 import cmd
-"""Defines the HBnB console."""
+"""
+Defines the HBnB console.
+Attributes
+cmd
+"""
 
 
 class HBNBCommand(cmd.Cmd):
