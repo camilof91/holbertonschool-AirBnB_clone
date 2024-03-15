@@ -31,9 +31,10 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         pass
-    
+
     List_classes = ["BaseModel", "user"]
-    def do_create(self, line):
+
+    def do_create(self, line):         
         """Usage: create <class>
         Create a new class instance and print its id.
         """
@@ -71,9 +72,9 @@ class HBNBCommand(cmd.Cmd):
 
         print(objects[key])
 
-
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id"""
+
         if not arg:
             print("** class name missing **")
             return
@@ -94,7 +95,6 @@ class HBNBCommand(cmd.Cmd):
                 models.storage.save()
                 return
         print("** no instance found **")
-
 
     def do_all(self, arg):
         """Prints all string representation of all instances"""
@@ -152,6 +152,7 @@ class HBNBCommand(cmd.Cmd):
             return
         setattr(objects[key], argl[2], argl[3])
         models.storage.save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
