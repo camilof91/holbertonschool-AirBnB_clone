@@ -77,8 +77,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         argl = arg.split()
-        if len(argl) == 0:
-            print("** class name missing **")
+        if len(argl) < 2:  # Check if there are at least two elements in argl
+            print("** instance id missing **")
             return
         class_name = argl[0]
         try:
@@ -87,15 +87,12 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         objects = models.storage.all()
-        found_instance = False
-        for key, obj in objects.items():
+        for obj in objects.values():
             if isinstance(obj, instance_class) and obj.id == argl[1]:
-                del objects[key]
+                del objects[obj.__class__.__name__ + '.' + obj.id]
                 models.storage.save()
-                found_instance = True
-                break
-        if not found_instance:
-            print("** no instance found **")
+                return
+        print("** no instance found **")
 
 
     def do_all(self, arg):
