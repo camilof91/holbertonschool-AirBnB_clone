@@ -56,19 +56,20 @@ class HBNBCommand(cmd.Cmd):
             return
         class_name = argl[0]
         try:
-            instance_id = argl[1]
-        except IndexError:
+            instance_class = eval(class_name)
+        except NameError:
+            print("** class doesn't exist **")
+            return
+        if len(argl) < 2:
             print("** instance id missing **")
             return
-        
+        instance_id = argl[1]
         key = class_name + '.' + instance_id
         objects = models.storage.all()
         if key not in objects:
             print("** no instance found **")
             return
-        
-        instance = objects[key]
-        print(instance)
+        print(objects[key])
 
 
     def do_destroy(self, arg):
