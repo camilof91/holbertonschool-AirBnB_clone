@@ -32,7 +32,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         pass
     
-    List_classes = ["BaseModel"]
+    List_classes = ["BaseModel", "user"]
     def do_create(self, line):
         """Usage: create <class>
         Create a new class instance and print its id.

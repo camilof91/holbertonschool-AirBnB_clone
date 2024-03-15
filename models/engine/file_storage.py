@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 import json
+from models.base_model import BaseModel
+from models.user import User
 """
 In this file we are going to serialize instances into a JSON file and
 deserialize the JSON file into instances
@@ -33,7 +35,7 @@ class FileStorage:
 
     def reload(self):
         """Deserializes the JSON file to __objects"""
-        try:
+        try:       
             with open(self.__file_path, 'r') as open_file:
                 serialized_objects = json.load(open_file)
                 from models.base_model import BaseModel
