@@ -2,7 +2,6 @@
 import models 
 from uuid import uuid4
 from datetime import datetime
-from models import storage
 """
     Represents a sample class with attributes
     for identification and timestamps.
@@ -36,8 +35,7 @@ class BaseModel:
             self.updated_at = datetime.today()
             """New objects can only be included in storage when
             the objects do not come from the JSON file (Point 5)"""
-            storage.new(self)
-        
+                    
 
     def __str__(self):
         """
@@ -53,7 +51,7 @@ class BaseModel:
         self.updated_at = datetime.now()
         """Call the save function to update the file
             in case there are changes(point 5)"""
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """Convert the instance to a dictionary.
