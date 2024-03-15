@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Defines the HBnB console."""
+
 from models.base_model import BaseModel
 import cmd
 import models
@@ -30,7 +31,8 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         pass
-
+    
+    List_classes = ["BaseModel"]
     def do_create(self, line):
         """Usage: create <class>
         Create a new class instance and print its id.
@@ -38,7 +40,7 @@ class HBNBCommand(cmd.Cmd):
         argl = line.split()
         if not argl:
             print("** class name missing **")
-        elif argl[0] not in ["BaseModel"]:
+        elif argl[0] not in self.List_classes:
             print("** class doesn't exist **")
         else:
             new_instance = eval(argl[0])()
@@ -47,28 +49,26 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         """Prints the string representation of an instance"""
-        if not arg:
-            print("** class name missing **")
-            return
         argl = arg.split()
-        if len(argl) == 0:
+        if not argl:
             print("** class name missing **")
             return
+
         class_name = argl[0]
-        try:
-            instance_class = eval(class_name)
-        except NameError:
+        if class_name not in self.List_classes:
             print("** class doesn't exist **")
             return
+
         if len(argl) < 2:
             print("** instance id missing **")
             return
-        instance_id = argl[1]
-        key = class_name + '.' + instance_id
+
+        key = class_name + '.' + argl[1]
         objects = models.storage.all()
         if key not in objects:
             print("** no instance found **")
             return
+
         print(objects[key])
 
 
