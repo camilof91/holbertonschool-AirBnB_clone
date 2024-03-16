@@ -14,7 +14,10 @@ class FileStorage:
     deserializes JSON file to instances.
     """
     __file_path = "file.json"
-    __objects = {}
+    __objects = {
+        "BaseModel": {},
+        "User": {}
+    }
 
     def all(self):
         """Returns the dictionary __objects"""
@@ -29,7 +32,8 @@ class FileStorage:
         """Serializes __objects to the JSON file (path: __file_path)"""
         serialized_objects = {}
         for key, obj in self.__objects.items():
-            serialized_objects[key] = obj.to_dict()
+            if isinstance(obj, BaseModel):
+                serialized_objects[key] = obj.to_dict()
         with open(self.__file_path, 'w') as open_file:
             json.dump(serialized_objects, open_file)
 
