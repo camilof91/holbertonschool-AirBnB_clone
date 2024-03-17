@@ -2,6 +2,7 @@
 """Defines the HBnB console."""
 
 from models.base_model import BaseModel
+from models.user import User
 import cmd
 import models
 
@@ -32,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         pass
     
-    List_classes = ["BaseModel"]
+    List_classes = ["BaseModel", "User"]
     def do_create(self, line):
         """Usage: create <class>
         Create a new class instance and print its id.
