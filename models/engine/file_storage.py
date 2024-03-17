@@ -14,10 +14,7 @@ class FileStorage:
     deserializes JSON file to instances.
     """
     __file_path = "file.json"
-    __objects = {
-        "BaseModel": {},
-        "User": {}
-    }
+    __objects = {}
 
     def all(self):
         """Returns the dictionary __objects"""
@@ -44,6 +41,11 @@ class FileStorage:
                 serialized_objects = json.load(open_file)
                 from models.base_model import BaseModel
                 from models.user import User  
+                from models.place import Place
+                from models.state import State
+                from models.city import City
+                from models.amenity import Amenity
+                from models.review import Review
                 for key, value in serialized_objects.items():
                     if value['__class__'] != "NoneType":
                         class_name = value['__class__']
@@ -51,5 +53,15 @@ class FileStorage:
                             self.__objects[key] = BaseModel(**value)
                         elif class_name == "User":  
                             self.__objects[key] = User(**value)
+                        elif class_name == "Place"
+                            self.__objects[key] = Place(**value)
+                        elif class_name == "State"
+                            self.__objects[key] == State(**value)
+                        elif class_name == "City"
+                            self.__objects[key] == City(**value)
+                        elif class_name == "Amenity"
+                            self.__objects == Amenity(**value)
+                        elif class_name == "Review"
+                            self.__objects == Review(**value)
         except FileNotFoundError:
             pass
