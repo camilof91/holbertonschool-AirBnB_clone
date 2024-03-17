@@ -3,8 +3,10 @@
 
 from models.base_model import BaseModel
 from models.user import User
+from models import storage
 import cmd
 import models
+
 
 
 class HBNBCommand(cmd.Cmd):
@@ -14,6 +16,10 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
 
+    def __init__(self):
+        super().__init__()
+        self.List_classes = ["BaseModel", "User"]
+        
     def do_quit(self, arg):
         """Exit the program"""
         return True
@@ -32,9 +38,10 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         pass
-    
-    List_classes = ["BaseModel", "User"]
-    def do_create(self, line):
+
+    List_classes = ["BaseModel", "user"]
+
+    def do_create(self, line):         
         """Usage: create <class>
         Create a new class instance and print its id.
         """
@@ -69,9 +76,7 @@ class HBNBCommand(cmd.Cmd):
         if key not in objects:
             print("** no instance found **")
             return
-
         print(objects[key])
-
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id"""
@@ -79,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         argl = arg.split()
-        if len(argl) < 2:  # Check if there are at least two elements in argl
+        if len(argl) < 2:
             print("** instance id missing **")
             return
         class_name = argl[0]
@@ -90,12 +95,11 @@ class HBNBCommand(cmd.Cmd):
             return
         objects = models.storage.all()
         for obj in objects.values():
-            if isinstance(obj, instance_class) and obj.id == argl[1]:
+            if isinstance(obj, eval(class_name)) and obj.id == argl[1]:
                 del objects[obj.__class__.__name__ + '.' + obj.id]
                 models.storage.save()
                 return
-        print("** no instance found **")
-
+            print("** no instance found **")
 
     def do_all(self, arg):
         """Prints all string representation of all instances"""
@@ -105,7 +109,7 @@ class HBNBCommand(cmd.Cmd):
         argl = arg.split()
         if len(argl) == 0:
             print("** class name missing **")
-            return
+            return        
         class_name = argl[0]
         try:
             instances = [str(obj) for obj in models.storage.all().values() if isinstance(obj, eval(class_name))]
@@ -131,28 +135,28 @@ class HBNBCommand(cmd.Cmd):
         objects = models.storage.all()
         instance_id = None
         for obj_id in objects:
-            if isinstance(objects[obj_id], instance_class):
+            if isinstance(objects[obj_id], eval(class_name)):
                 instance_id = obj_id
                 break
-        if instance_id is None:
-            print("** no instance found **")
-            return
-        if len(argl) < 2:
-            print("** instance id missing **")
-            return
-        instance_id = argl[1]
-        key = class_name + '.' + instance_id
-        if key not in objects:
-            print("** no instance found **")
-            return
-        if len(argl) < 3:
-            print("** attribute name missing **")
-            return
-        if len(argl) < 4:
-            print("** value missing **")
-            return
-        setattr(objects[key], argl[2], argl[3])
-        models.storage.save()
-
+            if instance_id is None:
+                print("** no instance found **")
+                return
+            if len(argl) < 2:
+                print("** instance id missing **")
+                return
+            instance_id = argl[1]
+            key = class_name + '.' + instance_id
+            if key not in objects:
+                print("** no instance found **")
+                return
+            if len(argl) < 3:
+                print("** attribute name missing **")
+                return
+            if len(argl) < 4:
+                print("** value missing **")
+                return
+            setattr(objects[key], argl[2], argl[3])
+            models.storage.save()
+            
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+    HBNBCommand().cmdloop()            
