@@ -2,6 +2,13 @@
 import json
 from models.base_model import BaseModel
 from models.user import User
+from models.base_model import BaseModel
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+
 """
 In this file we are going to serialize instances into a JSON file and
 deserialize the JSON file into instances
@@ -38,13 +45,7 @@ class FileStorage:
         try:       
             with open(self.__file_path, 'r') as open_file:
                 serialized_objects = json.load(open_file)
-                from models.base_model import BaseModel
-                from models.user import User  
-                from models.place import Place
-                from models.state import State
-                from models.city import City
-                from models.amenity import Amenity
-                from models.review import Review
+                
                 for key, value in serialized_objects.items():
                     if value['__class__'] != "NoneType":
                         class_name = value['__class__']
