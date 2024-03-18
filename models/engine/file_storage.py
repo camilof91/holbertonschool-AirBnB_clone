@@ -22,15 +22,14 @@ class FileStorage:
 
     def new(self, obj):
         """Sets in __objects the obj with key <obj class name>.id"""
-        key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        self.__objects[key] = obj
+        key = obj.__class__.__name__
+        self.__objects["{}.{}".format(key, obj.id)] = obj
 
     def save(self):
         """Serializes __objects to the JSON file (path: __file_path)"""
         serialized_objects = {}
         for key, obj in self.__objects.items():
-            if isinstance(obj, BaseModel):
-                serialized_objects[key] = obj.to_dict()
+            serialized_objects[key] = obj.to_dict()
         with open(self.__file_path, 'w') as open_file:
             json.dump(serialized_objects, open_file)
 
@@ -53,15 +52,15 @@ class FileStorage:
                             self.__objects[key] = BaseModel(**value)
                         elif class_name == "User":  
                             self.__objects[key] = User(**value)
-                        elif class_name == "Place"
+                        elif class_name == "Place":
                             self.__objects[key] = Place(**value)
-                        elif class_name == "State"
+                        elif class_name == "State":
                             self.__objects[key] == State(**value)
-                        elif class_name == "City"
+                        elif class_name == "City":
                             self.__objects[key] == City(**value)
-                        elif class_name == "Amenity"
+                        elif class_name == "Amenity":
                             self.__objects == Amenity(**value)
-                        elif class_name == "Review"
+                        elif class_name == "Review":
                             self.__objects == Review(**value)
         except FileNotFoundError:
             pass

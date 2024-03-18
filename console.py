@@ -1,7 +1,12 @@
 #!/usr/bin/python3
 """Defines the HBnB console."""
-
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 from models.user import User
 from models import storage
 import cmd
@@ -15,10 +20,11 @@ class HBNBCommand(cmd.Cmd):
     This class provides an interactive command interpreter.
     """
     prompt = "(hbnb) "
+    List_classes = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
 
-    def __init__(self):
+    '''def __init__(self):
         super().__init__()
-        self.List_classes = ["BaseModel", "User"]
+        self.List_classes = ["BaseModel", "User"]'''
         
     def do_quit(self, arg):
         """Exit the program"""
@@ -39,8 +45,6 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         pass
 
-    List_classes = ["BaseModel", "user"]
-
     def do_create(self, line):         
         """Usage: create <class>
         Create a new class instance and print its id.
@@ -52,7 +56,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             new_instance = eval(argl[0])()
-            new_instance.save()
+            storage.new(new_instance)
+            storage.save()
             print(new_instance.id)
 
     def do_show(self, arg):
@@ -88,18 +93,16 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return
         class_name = argl[0]
-        try:
-            instance_class = eval(class_name)
-        except NameError:
-            print("** class doesn't exist **")
-            return
+        instance_id = argl[1]
         objects = models.storage.all()
-        for obj in objects.values():
-            if isinstance(obj, eval(class_name)) and obj.id == argl[1]:
-                del objects[obj.__class__.__name__ + '.' + obj.id]
-                models.storage.save()
-                return
+
+        key_to_delete = "{}.{}".format(class_name, instance_id)
+        if key_to_delete not in objects:
             print("** no instance found **")
+            return
+
+        del objects[key_to_delete]
+        models.storage.save()
 
     def do_all(self, arg):
         """Prints all string representation of all instances"""
