@@ -56,12 +56,12 @@ class FileStorage:
                         elif class_name == "Place":
                             self.__objects[key] = Place(**value)
                         elif class_name == "State":
-                            self.__objects[key] == State(**value)
+                            self.__objects[key] = State(**value)
                         elif class_name == "City":
-                            self.__objects[key] == City(**value)
+                            self.__objects[key] = City(**value)
                         elif class_name == "Amenity":
-                            self.__objects == Amenity(**value)
+                            self.__objects = Amenity(**value)
                         elif class_name == "Review":
-                            self.__objects == Review(**value)
+                            self.__objects = Review(**value)
         except FileNotFoundError:
             pass
