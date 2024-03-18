@@ -1,13 +1,6 @@
 #!/usr/bin/python3
 import json
-from models.base_model import BaseModel
-from models.user import User
-from models.base_model import BaseModel
-from models.place import Place
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.review import Review
+
 
 """
 In this file we are going to serialize instances into a JSON file and
@@ -42,12 +35,24 @@ class FileStorage:
 
     def reload(self):
         """Deserializes the JSON file to __objects"""
+
+        from models.user import User
+        from models.base_model import BaseModel
+        from models.place import Place
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.review import Review
         try:       
             with open(self.__file_path, 'r') as open_file:
                 serialized_objects = json.load(open_file)
                 
                 for key, value in serialized_objects.items():
-                    if value['__class__'] != "NoneType":
+                    class_name = eval(value["__class__"])(**value)
+                    self.__objects[key] = class_name
+                    
+
+                    '''if value['__class__'] != "NoneType":
                         class_name = value['__class__']
                         if class_name == "BaseModel":
                             self.__objects[key] = BaseModel(**value)
@@ -63,5 +68,6 @@ class FileStorage:
                             self.__objects[key] = Amenity(**value)
                         elif class_name == "Review":
                             self.__objects[key] = Review(**value)
+                    '''
         except FileNotFoundError:
             pass
