@@ -13,14 +13,13 @@ import cmd
 import models
 
 
-List_classes = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
 class HBNBCommand(cmd.Cmd):
     """
     HBNB command interpreter class.
     This class provides an interactive command interpreter.
     """
     prompt = "(hbnb) "
-    
+    List_classes = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
 
     '''def __init__(self):
         super().__init__()
@@ -145,7 +144,7 @@ class HBNBCommand(cmd.Cmd):
 
         data = arg.split()
 
-        if data[0] not in List_classes:
+        if data[0] not in self.List_classes:
 
             print("** class doesn't exist **")
 
