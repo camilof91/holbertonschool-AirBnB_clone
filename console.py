@@ -126,41 +126,31 @@ class HBNBCommand(cmd.Cmd):
         if len(argl) < 1:
             print("** class name missing **")
             return
-
         class_name = argl[0]
         if class_name not in self.List_classes:
             print("** class doesn't exist **")
             return
-
         if len(argl) < 2:
             print("** instance id missing **")
             return
-
         instance_id = argl[1]
         key = class_name + '.' + instance_id
         objects = models.storage.all()
-
         if key not in objects:
             print("** no instance found **")
             return
-
         instance = objects[key]
-
         if len(argl) < 3:
             print("** attribute name missing **")
             return
-
         if len(argl) < 4:
             print("** value missing **")
             return
-
         attribute_name = argl[2]
         value = argl[3]
-
         if not hasattr(instance, attribute_name):
             print("** attribute doesn't exist **")
             return
-
         # Asigna el nuevo valor al atributo
         setattr(instance, attribute_name, value)
         models.storage.save()
