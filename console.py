@@ -45,20 +45,28 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         pass
 
-    def do_create(self, line):         
-        """Usage: create <class>
-        Create a new class instance and print its id.
-        """
+    def do_create(self, line):
+        """Creates a new instance of a specified class."""
         argl = line.split()
         if not argl:
             print("** class name missing **")
-        elif argl[0] not in self.List_classes:
+            return
+
+        class_name = argl[0]
+        if class_name not in self.List_classes:
             print("** class doesn't exist **")
-        else:
-            new_instance = eval(argl[0])()
+            return
+
+        try:
+            # Crear instancia de la clase
+            new_instance = globals()[class_name]()
+            # Configurar atributos si es necesario
+            # new_instance.attr = value
             storage.new(new_instance)
             storage.save()
             print(new_instance.id)
+        except Exception as e:
+            print("Error creating instance:", str(e))
 
     def do_show(self, arg):
         """Prints the string representation of an instance"""
