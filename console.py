@@ -131,98 +131,40 @@ class HBNBCommand(cmd.Cmd):
 
     
     def do_update(self, arg):
-
         """Updates an instance based on the class name and id by adding
-
         or updating attribute (save the change into the JSON file)"""
 
         if not arg:
-
             print("** class name missing **")
-
             return
 
         data = arg.split()
-
         if data[0] not in self.List_classes:
-
             print("** class doesn't exist **")
-
             return
 
         if len(data) == 1:
-
             print("** instance id missing **")
-
             return
 
         if len(data) == 2:
-
             print("** attribute name missing **")
-
             return
 
         if len(data) == 3:
-
             print("** value missing **")
-
             return
 
         class_id = data[0] + "." + data[1]
-
         atrr_name = data[2]
-
         if class_id not in storage.all().keys():
-
             print("** no instance found **")
-
             return
 
         for key, value in storage.all().items():
-
             if class_id == key:
-
                 value.__dict__[atrr_name] = data[3]
-
                 storage.save()
-
-
-
-    # def do_update(self, line):
-    #     """Updates an instance based on the class name and id"""
-    #     argl = line.split()
-    #     if len(argl) < 1:
-    #         print("** class name missing **")
-    #         return
-    #     class_name = argl[0]
-    #     if class_name not in self.List_classes:
-    #         print("** class doesn't exist **")
-    #         return
-    #     if len(argl) < 2:
-    #         print("** instance id missing **")
-    #         return
-    #     instance_id = argl[1]
-    #     key = class_name + '.' + instance_id
-    #     objects = models.storage.all()
-    #     if key not in objects:
-    #         print("** no instance found **")
-    #         return
-    #     instance = objects[key]
-    #     if len(argl) < 3:
-    #         print("** attribute name missing **")
-    #         return
-    #     if len(argl) < 4:
-    #         print("** value missing **")
-    #         return
-    #     attribute_name = argl[2]
-    #     value = argl[3]
-    #     if not hasattr(instance, attribute_name):
-    #         print("** attribute doesn't exist **")
-    #         return
-    #     # Asigna el nuevo valor al atributo
-    #     setattr(instance, attribute_name, value)
-    #     models.storage.save()
-    #     print("Instance updated successfully!")
             
 if __name__ == '__main__':
     HBNBCommand().cmdloop()            
