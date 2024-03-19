@@ -51,6 +51,7 @@ class BaseModel:
         self.updated_at = datetime.now()
         """Call the save function to update the file
             in case there are changes(point 5)"""
+        models.storage.new(self)
         models.storage.save()
 
     def to_dict(self):
