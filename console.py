@@ -19,12 +19,18 @@ class HBNBCommand(cmd.Cmd):
     This class provides an interactive command interpreter.
     """
     prompt = "(hbnb) "
-    List_classes = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
+    List_classes = ["BaseModel",
+                    "User",
+                    "Place",
+                    "State",
+                    "City",
+                    "Amenity",
+                    "Review"]
 
     '''def __init__(self):
         super().__init__()
         self.List_classes = ["BaseModel", "User"]'''
-        
+
     def do_quit(self, arg):
         """Exit the program"""
         return True
@@ -119,17 +125,15 @@ class HBNBCommand(cmd.Cmd):
         argl = arg.split()
         if len(argl) == 0:
             print("** class name missing **")
-            return        
+            return
         class_name = argl[0]
         try:
-            instances = [str(obj) for obj in models.storage.all().values() if isinstance(obj, eval(class_name))]
+            instances = [str(obj) for obj in models.storage.all().values()
+                         if isinstance(obj, eval(class_name))]
             print(instances)
         except NameError:
             print("** class doesn't exist **")
 
-
-
-    
     def do_update(self, arg):
         """Updates an instance based on the class name and id by adding
         or updating attribute (save the change into the JSON file)"""
@@ -165,6 +169,7 @@ class HBNBCommand(cmd.Cmd):
             if class_id == key:
                 value.__dict__[atrr_name] = data[3]
                 storage.save()
-            
+
+
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()            
+    HBNBCommand().cmdloop()
