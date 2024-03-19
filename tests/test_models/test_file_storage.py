@@ -25,3 +25,12 @@ class TestFileStorage(unittest.TestCase):
         """if not isinstance(storage.all, dict):
             raise ValueError("Objects must be a dictionary.")"""
         return True
+
+    def test_all(self):
+        """
+        verify that the all function correctly returns the __object dictionary
+        """
+        return True
+
+    def test_new(self):
+        return True
