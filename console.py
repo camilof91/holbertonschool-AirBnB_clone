@@ -99,7 +99,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         data = arg.split()
-        if data[0] not in classes:
+        if data[0] not in self.List_classes:
             print("** class doesn't exist **")
             return
         if len(data) == 1:
