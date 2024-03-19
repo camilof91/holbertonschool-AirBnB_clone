@@ -27,10 +27,6 @@ class HBNBCommand(cmd.Cmd):
                     "Amenity",
                     "Review"]
 
-    '''def __init__(self):
-        super().__init__()
-        self.List_classes = ["BaseModel", "User"]'''
-
     def do_quit(self, arg):
         """Exit the program"""
         return True
@@ -97,25 +93,36 @@ class HBNBCommand(cmd.Cmd):
         print(objects[key])
 
     def do_destroy(self, arg):
-        """Deletes an instance based on the class name and id"""
+        """Deletes an instance based on the class
+        name and id (save the change into the JSON file)"""
         if not arg:
             print("** class name missing **")
             return
-        argl = arg.split()
-        if len(argl) < 2:
+        data = arg.split()
+        if data[0] not in classes:
+            print("** class doesn't exist **")
+            return
+        if len(data) == 1:
             print("** instance id missing **")
             return
-        class_name = argl[0]
-        instance_id = argl[1]
-        objects = models.storage.all()
-
-        key_to_delete = "{}.{}".format(class_name, instance_id)
-        if key_to_delete not in objects:
+        class_id = data[0] + "." + data[1]
+        if class_id in storage.all().keys():
+            with open("file.json", "w", encoding="utf-8"):
+                storage.all().pop(class_id)
+                storage.save()
+        else:
             print("** no instance found **")
-            return
 
-        del objects[key_to_delete]
-        models.storage.save()
+    def do_all(self, arg):
+        """Prints all string representation of all instances based
+        or not on the class name"""
+        try:
+            if arg:
+                eval(arg)
+            list_obj = [index.__str__() for index in storage.all().values()]
+            print(list_obj)
+        except NameError:
+            print("** class doesn't exist **")
 
     def do_all(self, arg):
         """Prints all string representation of all instances"""
