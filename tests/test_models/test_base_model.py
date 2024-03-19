@@ -8,7 +8,7 @@ import copy
 Here we are testing the file base_model
 """
 
-        
+
 class TestBaseModel(unittest.TestCase):
     def test_save(self):
         objeto = BaseModel()
