@@ -43,12 +43,12 @@ class FileStorage:
         from models.city import City
         from models.amenity import Amenity
         from models.review import Review
-        try:       
+        try:
             with open(self.__file_path, 'r') as open_file:
                 serialized_objects = json.load(open_file)
-                
+
                 for key, value in serialized_objects.items():
                     class_name = eval(value["__class__"])(**value)
-                    self.__objects[key] = class_name         
+                    self.__objects[key] = class_name
         except FileNotFoundError:
             pass

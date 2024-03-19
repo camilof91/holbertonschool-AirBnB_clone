@@ -11,7 +11,8 @@ class TestState(unittest.TestCase):
         self.assertTrue(hasattr(state, 'name'))
 
     def test_default_attribute_values(self):
-        """Test if State instance attributes have the correct default values."""
+        """Test if State instance attributes have
+        the correct default values."""
         state = State()
         self.assertEqual(state.name, "")
 
