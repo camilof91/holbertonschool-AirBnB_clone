@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 import json
-
-
 """
 In this file we are going to serialize instances into a JSON file and
 deserialize the JSON file into instances

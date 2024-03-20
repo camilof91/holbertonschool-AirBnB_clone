@@ -22,12 +22,10 @@ class TestFileStorage(unittest.TestCase):
     #     all_objects = self.storage.all()
     #     self.assertEqual(all_objects, {})
 
-    # def test_new_method(self):
-    #     """Test if new() method adds an object to the __objects dictionary."""
-    #     obj = BaseModel()
-    #     self.storage.new(obj)
-    #     all_objects = self.storage.all()
-    #     self.assertIn(obj, all_objects.values())
+    def test_all_empty_initially(self):
+        """Test if all() method returns an empty dictionary initially."""
+        all_objects = self.storage.all()
+        self.assertEqual(all_objects, {})
 
     def test_save_method(self):
         """Test if save() method saves the objects to the JSON file."""
