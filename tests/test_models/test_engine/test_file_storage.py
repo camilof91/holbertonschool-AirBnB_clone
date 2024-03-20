@@ -17,15 +17,17 @@ class TestFileStorage(unittest.TestCase):
         if os.path.exists(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
 
-    # def test_all_empty_initially(self):
-    #     """Test if all() method returns an empty dictionary initially."""
-    #     all_objects = self.storage.all()
-    #     self.assertEqual(all_objects, {})
-
-    def test_all_empty_initially(self):
-        """Test if all() method returns an empty dictionary initially."""
+    def test_all_after_saving_objects(self):
+        """Test if all() method returns all objects after saving."""
+        obj1 = BaseModel()
+        obj2 = BaseModel()
+        self.storage.new(obj1)
+        self.storage.new(obj2)
+        self.storage.save()
         all_objects = self.storage.all()
-        self.assertEqual(all_objects, {})
+        self.assertEqual(len(all_objects), 2)
+        self.assertIn(obj1.id, all_objects)
+        self.assertIn(obj2.id, all_objects)
 
     def test_save_method(self):
         """Test if save() method saves the objects to the JSON file."""
